@@ -71,7 +71,7 @@ export default function LoginView() {
           setIsLoading(false);
           toast.success(res?.data?.message);
           setValues(initialValues);
-          navigate('/');
+          navigate('/dashboard');
           localStorage.setItem('token', res?.data?.token);
         }
       } catch (error) {
