@@ -25,29 +25,30 @@ const AdminRoute = ({ children }) => {
 export default function Router() {
   const routes = useRoutes([
     {
+      path: '/',
+      element: <HomePage />,
+    },
+    {
       path: '/onboarding-members/:formToken',
       element: <OnBoardingPage />, // Accessible to everyone
     },
     {
-      path: '/',
+      path: '/dashboard',
       element: (
-        <DashboardLayout>
-          <Suspense>
-            <Outlet />
-          </Suspense>
-        </DashboardLayout>
+        <AdminRoute>
+          <DashboardLayout>
+            <Suspense>
+              <Outlet />
+            </Suspense>
+          </DashboardLayout>
+        </AdminRoute>
       ),
       children: [
         { element: <IndexPage />, index: true },
-        { path: '/', element: <HomePage /> },
 
         {
-          path: '/list',
-          element: (
-            <AdminRoute>
-              <ListPage />{' '}
-            </AdminRoute>
-          ),
+          path: '/dashboard/list',
+          element: <ListPage />,
         },
       ],
     },
