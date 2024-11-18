@@ -160,7 +160,7 @@ const OnBoarding = () => {
         >
           <Grid container>
             <Grid item xs={12}>
-              {showSuccess ? (
+              {!showSuccess ? (
                 <Box
                   sx={{
                     display: 'flex',
@@ -172,6 +172,7 @@ const OnBoarding = () => {
                 >
                   <LottieComponent LoderData={successAnimation} />
                   <Typography>Thank You!</Typography>
+                  <Typography>Your submission has been received successfully!</Typography>
                 </Box>
               ) : (
                 <Grid container spacing={2}>
@@ -290,7 +291,7 @@ const OnBoarding = () => {
                           },
                         }}
                       >
-                        {isLoading ? 'loaidng...' : 'Submit'}
+                        {isLoading ? 'loading...' : 'Submit'}
                       </Button>
                     </Box>
                   </Grid>

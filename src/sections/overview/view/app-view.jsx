@@ -63,7 +63,7 @@ export default function AppView() {
             </Grid>
             <Grid xs={12} sm={6} md={3}>
               <AppWidgetSummary
-                title="pending member submissions"
+                title="Pending member submissions"
                 total={isdata?.stats?.notSubmittedForm}
                 color="info"
                 icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
@@ -72,7 +72,7 @@ export default function AppView() {
 
             <Grid xs={12} sm={6} md={3}>
               <AppWidgetSummary
-                title="expired board members"
+                title="Expired board members"
                 total={isdata?.stats?.expired}
                 color="warning"
                 icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}

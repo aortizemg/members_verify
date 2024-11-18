@@ -111,6 +111,17 @@ export default function ListPage() {
     setFilterName(event.target.value);
   };
 
+  const deleteUser = async (userId) => {
+    try {
+      const res = await authService.deletee(userId);
+      if (res?.status === 200) {
+        toast.success(res?.data?.message);
+        setRefetch(!refetch);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const dataFiltered = isdata?.users;
 
   const notFound = !dataFiltered?.length && !!filterName;
@@ -182,6 +193,7 @@ export default function ListPage() {
                       emailSent={row?.emailSent}
                       formSubmit={row?.formFilled}
                       idExpiry={row?.termEnd}
+                      onDelete={() => deleteUser(row?._id)}
                       handleOpenEmailDialog={() => {
                         setisOpen(true);
                         setEmail(row?.primaryEmail);

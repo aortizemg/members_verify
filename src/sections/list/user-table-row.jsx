@@ -91,7 +91,7 @@ export default function UserTableRow({
             {email}
           </Typography>
         </TableCell>
-        <TableCell>{dayjs(dob).format('MMMM D, YYYY')}</TableCell>
+        <TableCell>{dayjs(idExpiry).format('MMMM D, YYYY')}</TableCell>
 
         <TableCell>
           <Typography
