@@ -51,8 +51,6 @@ const EmailDialog = ({ isOpen, setisOpen, email, handleClose, isID, setRefetch, 
       }
     }
 
-    if ('subject' in fieldValue) temp.subject = fieldValue.subject ? '' : 'This Field is Required';
-
     setErrors({
       ...temp,
     });
