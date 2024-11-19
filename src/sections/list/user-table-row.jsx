@@ -22,6 +22,7 @@ export default function UserTableRow({
   assocCode,
   dob,
   lastName,
+  sendMail,
   idExpiry,
   identification,
   address,
@@ -139,9 +140,17 @@ export default function UserTableRow({
         <TableCell>
           <IconButton
             sx={{ fontSize: '.75rem', borderRadius: '8px', fontWeight: 'bold', background: '#eee' }}
-            onClick={handleOpenEmailDialog}
+            onClick={sendMail}
           >
             Reminder
+          </IconButton>
+        </TableCell>
+        <TableCell>
+          <IconButton
+            sx={{ fontSize: '.75rem', borderRadius: '8px', fontWeight: 'bold', background: '#eee' }}
+            onClick={handleOpenEmailDialog}
+          >
+            Custom Email
           </IconButton>
         </TableCell>
         <TableCell align="right">
@@ -189,6 +198,7 @@ UserTableRow.propTypes = {
   selected: PropTypes.any,
   email: PropTypes.any,
   onDelete: PropTypes.any,
+  sendMail: PropTypes.any,
   emailSent: PropTypes.any,
   handleOpenEmailDialog: PropTypes.any,
   formSubmit: PropTypes.any,

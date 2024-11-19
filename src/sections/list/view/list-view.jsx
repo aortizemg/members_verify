@@ -122,6 +122,25 @@ export default function ListPage() {
       console.log(error);
     }
   };
+
+  const sendMail = async (mEmail, mID) => {
+    const datas = {
+      toEmail: mEmail,
+    };
+    try {
+      const res = await adminService.sendEmail(mID, datas);
+
+      if (res.status === 200) {
+        toast.success(res.data.message);
+
+        setRefetch(!refetch);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Failed to send the email');
+    }
+  };
+
   const dataFiltered = isdata?.users;
 
   const notFound = !dataFiltered?.length && !!filterName;
@@ -170,7 +189,8 @@ export default function ListPage() {
                   { id: 'idImage', label: 'ID Image' },
                   { id: 'emailSent', label: 'Email Sent' },
                   { id: 'formSubmitted', label: 'Form Submitted' },
-                  { id: 'sendEmail', label: 'Send Reminder' },
+                  { id: 'sendtemplate', label: 'Reminder' },
+                  { id: 'sendEmail', label: 'Send Custom Email' },
                   { id: '' },
                 ]}
               />
@@ -193,6 +213,7 @@ export default function ListPage() {
                       emailSent={row?.emailSent}
                       formSubmit={row?.formFilled}
                       idExpiry={row?.termEnd}
+                      sendMail={() => sendMail(row?.primaryEmail, row?.uniqueId)}
                       onDelete={() => deleteUser(row?._id)}
                       handleOpenEmailDialog={() => {
                         setisOpen(true);
