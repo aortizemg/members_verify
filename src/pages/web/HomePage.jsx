@@ -1,15 +1,23 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import { Button, Container } from '@mui/material';
+import Hero from 'src/components/shared/hero';
+import FAQs from 'src/components/shared/quest';
+import Timer from 'src/components/shared/timer';
+import Navbar from 'src/components/shared/navbar';
+import Footer from 'src/components/shared/footer';
+import GetInTouch from 'src/components/shared/getInTouch';
+import AlternateTimeline from 'src/components/shared/timeline';
 
-const HomePage = () => {
-  const navigate = useNavigate();
-  return (
-    <Container>
-      <Button onClick={() => navigate('/login')}>Login</Button>
-    </Container>
-  );
-};
+const HomePage = () => (
+  <>
+    <Navbar />
+    <Timer />
+    <Hero />
+    <FAQs />
+    <AlternateTimeline />
+    <GetInTouch />
+    <Footer />
+  </>
+);
 
 export default HomePage;
