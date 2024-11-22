@@ -160,7 +160,7 @@ const OnBoarding = () => {
         >
           <Grid container>
             <Grid item xs={12}>
-              {!showSuccess ? (
+              {showSuccess ? (
                 <Box
                   sx={{
                     display: 'flex',
