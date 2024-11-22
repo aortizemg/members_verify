@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, Grid, Stack, Container, Typography } from '@mui/material';
 
 import { faqs } from './data';
-import faqImg from '../../../assets/faq1.png';
+import faqImg from '../../../assets/imag2.jpeg';
 
 const FAQs = () => (
   <Box
@@ -16,32 +16,33 @@ const FAQs = () => (
     <Box
       sx={{
         display: 'flex',
-        animation: { md: 'move 20s linear infinite', xs: 'move 10s linear infinite' },
+        justifyContent: 'center',
+        mt: '2rem',
+        // animation: { md: 'move 20s linear infinite', xs: 'move 10s linear infinite' },
       }}
     >
-      {faqs?.map((item, index) => (
-        <Typography
-          key={item?.id}
-          sx={{
-            fontSize: { md: '48px', xs: '24px' },
-            fontFamily: 'Urbanist',
-            fontWeight: '800',
-            whiteSpace: 'nowrap', // Prevent line breaks
-            color: index % 2 === 0 ? '#18909C' : 'transparent', // Text color for even/odd
-            WebkitTextStroke: {
-              md: index % 2 === 0 ? 'none' : '2px #18909C',
-              xs: index % 2 === 0 ? 'none' : '1px #18909C',
-            }, // Stroke for odd questions
-            textAlign: 'center',
-
-            display: 'inline-block', // Allow animation to affect individual items
-            padding: '8px 16px',
-            margin: '16px 0',
-          }}
-        >
-          {item?.question}
-        </Typography>
-      ))}
+      {/* {faqs?.map((item, index) => ( */}
+      <Typography
+        // key={item?.id}
+        sx={{
+          fontSize: { md: '48px', xs: '24px' },
+          fontFamily: 'Urbanist',
+          fontWeight: '800',
+          whiteSpace: 'nowrap', // Prevent line breaks
+          // color: index % 2 === 0 ? '#18909C' : 'transparent', // Text color for even/odd
+          // WebkitTextStroke: {
+          //   md: index % 2 === 0 ? 'none' : '2px #18909C',
+          //   xs: index % 2 === 0 ? 'none' : '1px #18909C',
+          // }, // Stroke for odd questions
+          textAlign: 'center',
+          display: 'inline-block', // Allow animation to affect individual items
+          padding: '8px 16px',
+          margin: '16px 0',
+        }}
+      >
+        FAQs
+      </Typography>
+      {/* ))} */}
     </Box>
 
     <Container sx={{ marginTop: '3rem', paddingBottom: '1rem' }}>
@@ -52,8 +53,27 @@ const FAQs = () => (
           md={4}
           sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
         >
-          <Box sx={{ width: { md: '100%', xs: '90%' } }}>
-            <img src={faqImg} alt="" />
+          <Box
+            sx={{
+              width: {
+                md: '100%',
+                xs: '90%',
+              },
+              borderRadius: '12px',
+              overflow: 'hidden',
+              border: '2px solid #216c74',
+              height: '100%',
+            }}
+          >
+            <Box
+              sx={{
+                backgroundImage: `url(${faqImg})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                height: '100%',
+              }}
+            />
+            {/* <img src={faqImg} alt="" height="100%" style={{ width: '100%' }} /> */}
           </Box>
         </Grid>
         <Grid item xs={12} md={8}>
