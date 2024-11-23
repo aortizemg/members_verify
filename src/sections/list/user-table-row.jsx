@@ -32,6 +32,7 @@ export default function UserTableRow({
   emailSent,
   handleOpenEmailDialog,
   onDelete,
+  onEdit,
 }) {
   const [open, setOpen] = useState(null);
 
@@ -170,7 +171,7 @@ export default function UserTableRow({
           sx: { width: 140 },
         }}
       >
-        <MenuItem onClick={handleCloseMenu}>
+        <MenuItem onClick={onEdit}>
           <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
           Edit
         </MenuItem>
@@ -203,4 +204,5 @@ UserTableRow.propTypes = {
   handleOpenEmailDialog: PropTypes.any,
   formSubmit: PropTypes.any,
   memberType: PropTypes.string,
+  onEdit: PropTypes.any,
 };

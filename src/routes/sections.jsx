@@ -6,14 +6,13 @@ import ListPage from 'src/pages/list';
 import HomePage from 'src/pages/web/HomePage';
 import OnBoardingPage from 'src/pages/onboarding';
 
+import Edit from 'src/sections/list/view/edit';
+
 export const Home = lazy(() => import('src/client/pages/Home'));
 export const WebLayout = lazy(() => import('src/client/Layout/WebLayout'));
 export const DashboardLayout = lazy(() => import('src/layouts/dashboard'));
 export const IndexPage = lazy(() => import('src/pages/app'));
-export const BlogPage = lazy(() => import('src/pages/blog'));
-export const UserPage = lazy(() => import('src/pages/user'));
 export const LoginPage = lazy(() => import('src/pages/login'));
-export const ProductsPage = lazy(() => import('src/pages/products'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
 const AdminRoute = ({ children }) => {
@@ -49,6 +48,10 @@ export default function Router() {
         {
           path: '/dashboard/list',
           element: <ListPage />,
+        },
+        {
+          path: '/dashboard/list/edit/:id',
+          element: <Edit />,
         },
       ],
     },

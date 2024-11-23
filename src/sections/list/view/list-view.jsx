@@ -1,9 +1,13 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable react-hooks/exhaustive-deps */
+
 import * as XLSX from 'xlsx';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import React, { useRef, useState, useEffect } from 'react';
 
 import {
+  Box,
   Card,
   Stack,
   Table,
@@ -29,6 +33,7 @@ import TableEmptyRows from '../table-empty-rows';
 import UserTableToolbar from '../user-table-toolbar';
 
 export default function ListPage() {
+  const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('name');
@@ -141,6 +146,15 @@ export default function ListPage() {
     }
   };
 
+  const handleDownload = async () => {
+    try {
+      const res = await adminService.downloadExcel();
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const dataFiltered = isdata?.users;
 
   const notFound = !dataFiltered?.length && !!filterName;
@@ -149,16 +163,21 @@ export default function ListPage() {
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4">All Members</Typography>
-        <Button variant="contained" component="label">
-          Upload Excel File
-          <input
-            type="file"
-            ref={fileInputRef}
-            hidden
-            accept=".xlsx, .xls"
-            onChange={handleFileUpload}
-          />
-        </Button>
+        <Box>
+          <Button variant="contained" component="label">
+            Upload Excel File
+            <input
+              type="file"
+              ref={fileInputRef}
+              hidden
+              accept=".xlsx, .xls"
+              onChange={handleFileUpload}
+            />
+          </Button>
+          <Button variant="contained" component="label" onClick={handleDownload}>
+            Download Excel File
+          </Button>
+        </Box>
       </Stack>
 
       <Card>
@@ -220,6 +239,7 @@ export default function ListPage() {
                         setEmail(row?.primaryEmail);
                         setIsID(row?.uniqueId);
                       }}
+                      onEdit={() => navigate(`/dashboard/list/edit/${row?._id}`)}
                     />
                   ))}
                   <TableEmptyRows
