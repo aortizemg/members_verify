@@ -52,6 +52,7 @@ const OnBoarding = () => {
       const res = await authService.uploadId(datas);
       console.log('Image upload response:', res);
       if (res.status === 200) {
+        toast.success(res?.data?.message);
         const fileUrl = await decryptData(res.data.encryptedFileUrl);
         setValues({ ...values, idImage: fileUrl });
       } else {

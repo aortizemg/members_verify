@@ -163,7 +163,7 @@ export default function ListPage() {
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4">All Members</Typography>
-        <Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <Button variant="contained" component="label">
             Upload Excel File
             <input

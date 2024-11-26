@@ -46,6 +46,7 @@ function Navbar() {
               variant=""
               sx={{
                 background: '#18909C',
+                display: { xs: 'none', sm: 'block' },
                 color: '#fff',
                 ':hover': { background: '#0d596173' },
               }}
