@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import '@lottiefiles/lottie-player';
 import { toast } from 'react-toastify';
 import React, { useState } from 'react';
@@ -17,7 +18,7 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
-import { encryptData } from 'src/hooks/crypto';
+import { decryptData, encryptData } from 'src/hooks/crypto';
 
 import authService from 'src/redux/api/userServices';
 
@@ -44,12 +45,30 @@ const OnBoarding = () => {
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
 
+  // Separate function for uploading the ID image
+  const uploadIdImage = async (file) => {
+    const datas = { idImage: file };
+    try {
+      const res = await authService.uploadId(datas);
+      console.log('Image upload response:', res);
+      if (res.status === 200) {
+        const fileUrl = await decryptData(res.data.encryptedFileUrl);
+        setValues({ ...values, idImage: fileUrl });
+      } else {
+        toast.error();
+      }
+    } catch (error) {
+      console.error('Image upload error:', error);
+      toast.error('Failed to upload image. Please try again.');
+    }
+  };
+
   const handleChange = async (event) => {
     setChecked(event.target.checked);
     const encryptedData = encryptData(values);
     const datas = {
       encryptedData,
-      idImage: values?.idImage,
+
       formToken,
     };
 
@@ -64,6 +83,7 @@ const OnBoarding = () => {
       }
     } catch (error) {
       console.log(error);
+      setOpen(false);
       setIsLoading(false);
       toast.error(error?.response?.data?.message);
     }
@@ -74,12 +94,14 @@ const OnBoarding = () => {
   const handleOnChange = (e) => {
     const { name, value, type, files } = e.target;
 
-    if (type === 'file') {
+    if (type === 'file' && files[0]) {
+      const file = files[0];
       // Handle file input
       setValues({
         ...values,
         [name]: files[0], // Store the file object
       });
+      uploadIdImage(file);
       validations({ [name]: files[0] });
     } else {
       setValues({

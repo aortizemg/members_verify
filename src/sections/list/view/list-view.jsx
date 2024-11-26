@@ -149,7 +149,7 @@ export default function ListPage() {
   const handleDownload = async () => {
     try {
       const res = await adminService.downloadExcel();
-      console.log(res);
+      console.log(res.data);
     } catch (error) {
       console.log(error);
     }

@@ -80,6 +80,8 @@ const Edit = () => {
     if ('termStart' in fieldValue)
       temp.termStart = fieldValue.termStart ? '' : 'This Field is Required';
     if ('termEnd' in fieldValue) temp.termEnd = fieldValue.termEnd ? '' : 'This Field is Required';
+    if ('associationManager' in fieldValue)
+      temp.associationManager = fieldValue.associationManager ? '' : 'This Field is Required';
     if ('firstName' in fieldValue)
       temp.firstName = fieldValue.firstName ? '' : 'This Field is Required';
     if ('lastName' in fieldValue)
@@ -111,7 +113,8 @@ const Edit = () => {
         const res = await adminService.update(id, datas);
         console.log(res);
         if (res.status === 200) {
-          toast.success(res);
+          toast.success(res?.data?.message);
+          navigate(-1);
         }
       } catch (error) {
         console.log(error);
@@ -153,8 +156,10 @@ const Edit = () => {
                 <CustomTextField
                   name="associationManager"
                   label="Assoc Manager"
-                  disabled
                   value={values?.associationManager}
+                  onChange={handleOnChange}
+                  error={Boolean(errors?.associationManager)}
+                  helperText={errors?.associationManager}
                 />
               </Grid>
               <Grid item xs={12} md={3}>

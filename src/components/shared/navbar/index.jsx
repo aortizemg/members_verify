@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
+import { Typography } from '@mui/material';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 
@@ -19,8 +20,15 @@ function Navbar() {
           disableGutters
           sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
         >
-          <Box sx={{ width: { xs: '50px', md: '60px' } }}>
-            <img src={logo} alt="" />
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <Box sx={{ width: { xs: '50px', md: '60px' } }}>
+              <img src={logo} alt="" />
+            </Box>
+            <Typography
+              sx={{ color: '#000', marginTop: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}
+            >
+              MembersVerify
+            </Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <Button
