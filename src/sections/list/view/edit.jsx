@@ -86,8 +86,7 @@ const Edit = () => {
       temp.firstName = fieldValue.firstName ? '' : 'This Field is Required';
     if ('lastName' in fieldValue)
       temp.lastName = fieldValue.lastName ? '' : 'This Field is Required';
-    if ('identification' in fieldValue)
-      temp.identification = fieldValue.identification ? '' : 'This Field is Required';
+
     if ('homeAddress' in fieldValue)
       temp.homeAddress = fieldValue.homeAddress ? '' : 'This Field is Required';
     if ('primaryEmail' in fieldValue) {
@@ -234,7 +233,6 @@ const Edit = () => {
                   name="identification"
                   label="Identification"
                   onChange={handleOnChange}
-                  error={Boolean(errors?.identification)}
                   value={values?.identification}
                   helperText={errors?.identification}
                 />

@@ -5,7 +5,19 @@ import { useState, useEffect } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import { Box, Select, MenuItem, InputLabel, FormControl } from '@mui/material';
+import {
+  Box,
+  List,
+  Select,
+  Popover,
+  MenuItem,
+  ListItem,
+  InputLabel,
+  FormControl,
+  ListItemText,
+  OutlinedInput,
+  InputAdornment,
+} from '@mui/material';
 
 import adminService from 'src/redux/api/adminServices';
 
@@ -19,11 +31,31 @@ export default function UserTableToolbar({
   onFilterName,
   setAssocName,
   assocName,
+
+  setExpiringFilter,
 }) {
   const [data, setData] = useState([]);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
   useEffect(() => {
     fetchList();
   }, []);
+  const handleOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleFilterClick = (filterType) => {
+    setExpiringFilter(filterType);
+    handleClose();
+  };
+
+  const isOpen = Boolean(anchorEl);
+
   const fetchList = async () => {
     try {
       const res = await adminService.getAssoc();
@@ -38,6 +70,7 @@ export default function UserTableToolbar({
 
   const handleChange = (event) => {
     setAssocName(event.target.value);
+    setExpiringFilter('');
   };
   return (
     <Toolbar
@@ -53,19 +86,6 @@ export default function UserTableToolbar({
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        {/* <OutlinedInput
-          value={filterName}
-          onChange={onFilterName}
-          placeholder="Search user..."
-          startAdornment={
-            <InputAdornment position="start">
-              <Iconify
-                icon="eva:search-fill"
-                sx={{ color: 'text.disabled', width: 20, height: 20 }}
-              />
-            </InputAdornment>
-          }
-        /> */}
         <Box sx={{ minWidth: 220 }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Associations</InputLabel>
@@ -86,11 +106,48 @@ export default function UserTableToolbar({
           </FormControl>
         </Box>
       </Box>
-      <Tooltip title="Filter list">
-        <IconButton>
-          <Iconify icon="ic:round-filter-list" />
-        </IconButton>
-      </Tooltip>
+
+      <Box>
+        <Tooltip title="Filter list" sx={{ mr: 2 }}>
+          <IconButton onClick={handleOpen}>
+            <Iconify icon="ic:round-filter-list" />
+          </IconButton>
+        </Tooltip>
+        <Popover
+          open={isOpen}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+        >
+          <List>
+            <ListItem button onClick={() => handleFilterClick('expired')}>
+              <ListItemText primary="Expired" />
+            </ListItem>
+            <ListItem button onClick={() => handleFilterClick('expiring')}>
+              <ListItemText primary="Expiring" />
+            </ListItem>
+            <ListItem button onClick={() => handleFilterClick('setDate')}>
+              <ListItemText primary="Set Date" />
+            </ListItem>
+          </List>
+        </Popover>
+        <OutlinedInput
+          value={filterName}
+          onChange={onFilterName}
+          placeholder="Search by email..."
+          startAdornment={
+            <InputAdornment position="start">
+              <Iconify
+                icon="eva:search-fill"
+                sx={{ color: 'text.disabled', width: 20, height: 20 }}
+              />
+            </InputAdornment>
+          }
+        />
+      </Box>
     </Toolbar>
   );
 }

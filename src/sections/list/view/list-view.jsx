@@ -21,16 +21,17 @@ import {
 
 import authService from 'src/redux/api/userServices';
 import adminService from 'src/redux/api/adminServices';
+// import { adminGenerateExcel } from 'src/redux/api/downloadExcel';
 
 import Scrollbar from 'src/components/scrollbar';
 import EmailDialog from 'src/components/dialogs/emailDialog';
 
-import { emptyRows } from '../utils';
 import TableNoData from '../table-no-data';
 import UserTableRow from '../user-table-row';
 import UserTableHead from '../user-table-head';
 import TableEmptyRows from '../table-empty-rows';
 import UserTableToolbar from '../user-table-toolbar';
+import { emptyRows, applyFilter, getComparator } from '../utils';
 
 export default function ListPage() {
   const navigate = useNavigate();
@@ -42,18 +43,20 @@ export default function ListPage() {
   const [refetch, setRefetch] = useState(false);
   const [isOpen, setisOpen] = useState(false);
   const [isdata, setData] = useState([]);
-
+  const [expiringFilter, setExpiringFilter] = useState('');
   const [email, setEmail] = useState('');
   const [isID, setIsID] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const fileInputRef = useRef(null);
   const [assocName, setAssocName] = useState('');
+  console.log(expiringFilter);
+
   useEffect(() => {
     fetchData();
-  }, [refetch, page, assocName]);
+  }, [refetch, page, assocName, expiringFilter, filterName]);
   const fetchData = async () => {
     try {
-      const res = await authService.getAll(page, assocName);
+      const res = await authService.getAll(page, assocName, expiringFilter, filterName);
 
       if (res.status === 200) {
         setIsLoading(false);
@@ -155,9 +158,12 @@ export default function ListPage() {
     }
   };
 
-  const dataFiltered = isdata?.users;
-
-  const notFound = !dataFiltered?.length && !!filterName;
+  const dataFiltered = applyFilter({
+    inputData: isdata?.users || [],
+    comparator: getComparator(order, orderBy),
+  });
+  const notFound = !dataFiltered?.length && !filterName;
+  console.log(dataFiltered);
 
   return (
     <Container>
@@ -186,6 +192,8 @@ export default function ListPage() {
           setAssocName={setAssocName}
           filterName={filterName}
           onFilterName={handleFilterByName}
+          setExpiringFilter={setExpiringFilter}
+          expiringFilter={expiringFilter}
         />
 
         <Scrollbar>

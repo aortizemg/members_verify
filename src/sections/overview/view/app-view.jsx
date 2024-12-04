@@ -87,6 +87,14 @@ export default function AppView() {
                 icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
               />
             </Grid>
+            <Grid xs={12} sm={6} md={3}>
+              <AppWidgetSummary
+                title="Submissions"
+                total={isdata?.stats?.SubmittedForm}
+                color="error"
+                icon={<img alt="icon" src="/assets/icons/glass/submitted.png" />}
+              />
+            </Grid>
           </Grid>
           <Box sx={{ marginTop: '3.5rem' }}>
             <ListPage />
