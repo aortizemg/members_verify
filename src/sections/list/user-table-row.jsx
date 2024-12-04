@@ -18,6 +18,7 @@ export default function UserTableRow({
   name,
   email,
   memberType,
+  isLoading,
   association,
   assocCode,
   dob,
@@ -143,7 +144,7 @@ export default function UserTableRow({
             sx={{ fontSize: '.75rem', borderRadius: '8px', fontWeight: 'bold', background: '#eee' }}
             onClick={sendMail}
           >
-            Reminder
+            {isLoading ? 'sending...' : 'Reminder'}
           </IconButton>
         </TableCell>
         <TableCell>
@@ -201,6 +202,7 @@ UserTableRow.propTypes = {
   onDelete: PropTypes.any,
   sendMail: PropTypes.any,
   emailSent: PropTypes.any,
+  isLoading: PropTypes.any,
   handleOpenEmailDialog: PropTypes.any,
   formSubmit: PropTypes.any,
   memberType: PropTypes.string,

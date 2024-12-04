@@ -297,6 +297,9 @@ const OnBoarding = () => {
                         {errors.idImage}
                       </Typography>
                     )}
+                    <span style={{ fontFamily: 'sans-serif', fontSize: '12px', color: '#777' }}>
+                      upload only jpeg,jpg,png,pdf
+                    </span>
                   </Grid>
 
                   {/* Submit Button */}
