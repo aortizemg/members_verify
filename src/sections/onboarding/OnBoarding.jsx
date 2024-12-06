@@ -31,7 +31,7 @@ const initialValues = {
   firstName: '',
   lastName: '',
   homeAddress: '',
-  identification: '',
+
   idImage: null,
   dob: '',
 };
@@ -69,12 +69,11 @@ const OnBoarding = () => {
     const encryptedData = encryptData(values);
     const datas = {
       encryptedData,
-
       formToken,
     };
 
     try {
-      setIsLoading(true);
+      setIsLoading(true); // Start loading
       const res = await authService.submitForm(datas);
 
       if (res.status === 201) {
@@ -83,12 +82,16 @@ const OnBoarding = () => {
         setShowSuccess(true);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      setIsLoading(false); // Stop loading on error
       setOpen(false);
-      setIsLoading(false);
-      toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message || 'An error occurred. Please try again.');
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000); // Adjust the delay as needed
     }
   };
+
   const handleOpen = () => {
     setOpen(true);
   };

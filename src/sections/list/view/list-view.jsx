@@ -47,7 +47,7 @@ export default function ListPage() {
   const [email, setEmail] = useState('');
   const [isID, setIsID] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingEmail, setIsLoadingEmail] = useState(false);
+  const [loadingStates, setLoadingStates] = useState({});
   const fileInputRef = useRef(null);
   const [assocName, setAssocName] = useState('');
   console.log(expiringFilter);
@@ -137,16 +137,16 @@ export default function ListPage() {
       toEmail: mEmail,
     };
     try {
-      setIsLoadingEmail(true);
+      setLoadingStates((prev) => ({ ...prev, [mID]: true }));
       const res = await adminService.sendEmail(mID, datas);
 
       if (res.status === 200) {
         toast.success(res.data.message);
-        setIsLoadingEmail(false);
+        setLoadingStates((prev) => ({ ...prev, [mID]: false }));
         setRefetch(!refetch);
       }
     } catch (error) {
-      setIsLoadingEmail(false);
+      setLoadingStates((prev) => ({ ...prev, [mID]: false }));
       console.log(error);
       toast.error('Failed to send the email');
     }
@@ -245,7 +245,7 @@ export default function ListPage() {
                       idExpiry={row?.termEnd}
                       sendMail={() => sendMail(row?.primaryEmail, row?.uniqueId)}
                       onDelete={() => deleteUser(row?._id)}
-                      isLoading={isLoadingEmail}
+                      isLoading={loadingStates[row?.uniqueId] || false} // Use row-specific loading state
                       handleOpenEmailDialog={() => {
                         setisOpen(true);
                         setEmail(row?.primaryEmail);
