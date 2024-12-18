@@ -49,16 +49,19 @@ const OnBoarding = () => {
   const uploadIdImage = async (file) => {
     const datas = { idImage: file };
     try {
+      setIsLoading(true);
       const res = await authService.uploadId(datas);
       console.log('Image upload response:', res);
       if (res.status === 200) {
         toast.success(res?.data?.message);
         const fileUrl = await decryptData(res.data.encryptedFileUrl);
         setValues({ ...values, idImage: fileUrl });
+        setIsLoading(false);
       } else {
         toast.error();
       }
     } catch (error) {
+      setIsLoading(false);
       console.error('Image upload error:', error);
       toast.error('Failed to upload image. Please try again.');
     }
@@ -88,12 +91,12 @@ const OnBoarding = () => {
       toast.error(error?.response?.data?.message || 'An error occurred. Please try again.');
       setTimeout(() => {
         window.location.reload();
-      }, 2000); // Adjust the delay as needed
+      }, 3000); // Adjust the delay as needed
     }
   };
 
   const handleOpen = () => {
-    setOpen(true);
+    setOpen(!open);
   };
   const handleOnChange = (e) => {
     const { name, value, type, files } = e.target;
