@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import '@lottiefiles/lottie-player';
 import { toast } from 'react-toastify';
-import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 import {
   Box,
@@ -45,6 +45,17 @@ const OnBoarding = () => {
   const [open, setOpen] = useState(false);
   const [checked, setChecked] = useState(false);
 
+  useEffect(() => {
+    fetchProcessId();
+  }, []);
+  const fetchProcessId = () => {
+    try {
+      const res = authService.processId();
+      console.log(res);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
   // Separate function for uploading the ID image
   const uploadIdImage = async (file) => {
     const datas = { idImage: file };
