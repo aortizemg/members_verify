@@ -1,6 +1,7 @@
 import { callAPi, callAPiMultiPart } from './http-common';
 
 const login = (data) => callAPi.post('/admin/login', data);
+const accessToken = () => callAPi.post('/api/user/get-access-token');
 const submitForm = (data) => callAPi.post('/api/user/submit-form', data);
 const uploadId = (data) => callAPiMultiPart.post('/api/user/upload-id', data);
 const getAll = (page, assocName, expiringFilter, filterName) => {
@@ -30,6 +31,7 @@ const authService = {
   getById,
   Update,
   deletee,
+  accessToken,
 };
 
 export default authService;
