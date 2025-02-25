@@ -15,7 +15,7 @@ import { fetchAccessToken } from './redux/slice/tokenSlice';
 export default function App() {
   useScrollToTop();
   const dispatch = useDispatch();
-  const { accessToken, expiresIn } = useSelector((state) => state.auth);
+  const { accessToken, expiresIn } = useSelector((state) => state?.token);
 
   useEffect(() => {
     // Fetch the token on mount
